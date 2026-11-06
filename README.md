@@ -6,6 +6,10 @@ y Paula Gómez del Águila. **Entrega indicada en Canvas:** 08/11/2026 a las 23:
 (hora de Madrid). Este repositorio es **privado** y se utiliza para colaborar; no
 acredita que la actividad haya sido entregada.
 
+Repositorio: https://github.com/Erickconestilo/ReparaYa-Producto2-BackendArchitects
+Propietario: `Erickconestilo`. Creado el 06/11/2026. La invitación a Paula está
+pendiente de confirmar su **usuario de GitHub exacto**.
+
 ## Estado y reparto
 
 - **Erick:** registro/login/perfil de clientes y creación, consulta, cancelación,
@@ -50,6 +54,10 @@ Al crear **por primera vez** una base vacía, Docker importa el SQL original, de
 la ampliación del esquema, el catálogo **DEMO** y la normalización de `Estándar`.
 La importación inicial no se repite al reiniciar una base que ya contiene datos.
 El archivo `.env` se genera localmente y **no se sube a GitHub**.
+Esta instalación desde cero se probó el 06/11 con una base temporal aislada:
+cinco tablas, catálogo DEMO y acentuación del `ENUM` correctos. Al concluir se
+eliminaron únicamente el contenedor y el volumen **temporales de esa prueba**;
+la base P2 de Erick se conservó sin interrupciones.
 
 Pruebas funcionales (crean usuarios y avisos ficticios dentro de la base P2):
 
@@ -73,6 +81,8 @@ elimina también el volumen de MySQL. Para pausar, usa `docker compose stop`.
 3. Hacer commits pequeños con autor real y presentar un *pull request* a `main`.
 4. Revisar SQL, requisitos, pruebas y autoría antes de fusionar.
 5. No versionar `.env`, credenciales ni capturas personales sin revisión.
+
+Guía de entrada para Paula: `GUIA-COLABORACION-PAULA.md`.
 
 Esta copia inicial no sustituye el trabajo ni las decisiones de Paula. El objetivo
 es que ambos puedan construir y comprobar la misma versión del proyecto.
