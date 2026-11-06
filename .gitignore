@@ -1,0 +1,29 @@
+# Nunca versionar credenciales ni configuraciones privadas.
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Archivos locales no necesarios para reproducir la aplicación.
+*.log
+*.bak
+*.tmp
+*.swp
+*.zip
+*.7z
+erick-lab-01/respaldo/
+
+# Capturas con ventanas/rutas personales: revisar antes de compartir.
+Doc_Captures_Print/*.png
+Doc_Captures_Print/*.jpg
+Doc_Captures_Print/*.jpeg
+Doc_Captures_Print/*.webp
+
+# Herramientas y sistema operativo.
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

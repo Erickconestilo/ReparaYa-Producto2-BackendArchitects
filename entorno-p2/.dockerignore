@@ -1,0 +1,7 @@
+# No enviar credenciales ni material de usuario al contexto de build.
+.env
+.env.*
+!.env.example
+*.log
+*.bak
+*.zip

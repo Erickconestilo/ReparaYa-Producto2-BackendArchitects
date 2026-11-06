@@ -1,0 +1,70 @@
+name: reparaya-p2-erick
+
+# Entorno P2 local y reproducible para el equipo. NO conecta con la BD de P1.
+services:
+  db:
+    image: mysql:8.0
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    restart: "no"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Ejecuta primero preparar-env-local.ps1}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?}
+      MYSQL_USER: ${MYSQL_USER:?}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?}
+    volumes:
+      - datos_mysql_p2:/var/lib/mysql
+      # Se importa solo al inicializar un volumen de BD completamente vacío.
+      - type: bind
+        source: ../SQL-oficial-original/bbddReparaYa(1).sql
+        target: /docker-entrypoint-initdb.d/01_bbddReparaYa_original.sql
+        read_only: true
+      - type: bind
+        source: ../migraciones/20261106_01_ampliacion_p2.sql
+        target: /docker-entrypoint-initdb.d/02_ampliacion_p2.sql
+        read_only: true
+      - type: bind
+        source: ../migraciones/20261106_02_datos_demo.sql
+        target: /docker-entrypoint-initdb.d/03_datos_demo.sql
+        read_only: true
+      - type: bind
+        source: ../migraciones/20261106_03_normalizar_enum_urgencia.sql
+        target: /docker-entrypoint-initdb.d/04_normalizar_urgencia.sql
+        read_only: true
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    networks: [reparaya_p2]
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: reparaya-p2-web:local
+    restart: "no"
+    working_dir: /lab
+    entrypoint: ["php"]
+    command: ["-S", "0.0.0.0:8000", "-t", "public"]
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: ${MYSQL_DATABASE:?}
+      DB_USER: ${MYSQL_USER:?}
+      DB_PASSWORD: ${MYSQL_PASSWORD:?}
+    volumes:
+      - type: bind
+        source: ../erick-lab-01
+        target: /lab
+    ports:
+      - "127.0.0.1:8083:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks: [reparaya_p2]
+
+volumes:
+  datos_mysql_p2:
+
+networks:
+  reparaya_p2:

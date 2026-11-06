@@ -1,0 +1,9 @@
+# Mantener el SQL oficial idéntico al original y scripts reproducibles.
+*.sql text eol=lf
+# El SQL oficial mantiene sus bytes CRLF originales; su SHA-256 es evidencia.
+SQL-oficial-original/*.sql -text
+*.php text eol=lf
+*.yaml text eol=lf
+Dockerfile text eol=lf
+*.md text eol=lf
+*.ps1 text eol=crlf
