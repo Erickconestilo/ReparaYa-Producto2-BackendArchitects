@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "ReparaYa · Estados de una incidencia (objetivo P2)",
+    "output": ".archify/lifecycle-incidencias-20261107-072710/estados-incidencia.html",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {"id":"main","label":"Ciclo normal previsto"},
+    {"id":"terminal","label":"Cancelación terminal"}
+  ],
+  "states": [
+    {"id":"pendiente","type":"start","label":"Pendiente","sublabel":"Cliente crea solicitud","lane":"main","col":0,"step":"1"},
+    {"id":"asignada","type":"active","label":"Asignada","sublabel":"Administrador asigna","lane":"main","col":1,"step":"2"},
+    {"id":"enCurso","type":"active","label":"En curso","sublabel":"Técnico comienza","lane":"main","col":2,"step":"3"},
+    {"id":"finalizada","type":"success","label":"Finalizada","sublabel":"Técnico termina","lane":"main","col":3,"step":"4"},
+    {"id":"cancelada","type":"failure","label":"Cancelada","sublabel":"Sin vuelta atrás","lane":"terminal","col":1}
+  ],
+  "transitions": [
+    {"from":"pendiente","to":"asignada","label":"Admin asigna"},
+    {"from":"asignada","to":"enCurso","label":"Técnico inicia"},
+    {"from":"enCurso","to":"finalizada","label":"Técnico finaliza"},
+    {"from":"pendiente","to":"cancelada","variant":"security","label":"Cliente +48 h / Admin"},
+    {"from":"asignada","to":"cancelada","variant":"security","label":"Cliente +48 h / Admin"}
+  ],
+  "cards": [
+    {"dot":"emerald","title":"Ya implementado por Erick","items":["Alta de solicitudes en Pendiente, consulta, edición y cancelación de cliente.","El cliente solo puede cancelar con más de 48 horas; los cambios se registran en historial."]},
+    {"dot":"amber","title":"Pendiente de integración con Paula","items":["Asignación de técnico por administrador.","Paso Asignada → En curso → Finalizada por técnico y calendario.","Esto es un mapa del comportamiento exigido; no certifica que ya funcione."]},
+    {"dot":"rose","title":"Reglas fundamentales","items":["Cliente: más de 48 horas para cancelar una cita Pendiente o Asignada.","Administrador: puede cancelar si está Pendiente o Asignada.","Finalizada y Cancelada no vuelven a estados activos."]}
+  ]
+}

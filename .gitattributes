@@ -7,3 +7,5 @@ SQL-oficial-original/*.sql -text
 Dockerfile text eol=lf
 *.md text eol=lf
 *.ps1 text eol=crlf
+# Archify genera HTML autocontenido con hashes verificados: mantener bytes exactos.
+.archify/*/*.html -text -diff

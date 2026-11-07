@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "ReparaYa P2 · Arquitectura MVC implementada",
+    "output": ".archify/architecture-reparaya-20261107-072710/mvc-reparaya.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Erickconestilo/ReparaYa-Producto2-BackendArchitects.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "3d68c51c63d328608605c1f896d9c502a2005be3"
+    }
+  },
+  "components": [
+    {
+      "id": "navegador", "type": "external", "label": "Cliente", "sublabel": "Navegador web", "pos": [35, 290], "size": [132, 64],
+      "sources": [{"path": "erick-lab-01/app/Views/solicitar.php", "line": 8, "end_line": 29}]
+    },
+    {
+      "id": "router", "type": "backend", "label": "Entrada PHP", "sublabel": "public/index.php · rutas", "pos": [262, 290], "size": [166, 70],
+      "sources": [{"path": "erick-lab-01/public/index.php", "line": 19, "end_line": 77}]
+    },
+    {
+      "id": "cuenta", "type": "backend", "label": "UsuarioController", "sublabel": "Registro, sesión y perfil", "pos": [510, 166], "size": [182, 76],
+      "sources": [{"path": "erick-lab-01/app/Controllers/UsuarioController.php", "line": 33, "end_line": 103}]
+    },
+    {
+      "id": "avisos", "type": "backend", "label": "SolicitudController", "sublabel": "Altas, plazos y acceso", "pos": [510, 410], "size": [182, 76],
+      "sources": [{"path": "erick-lab-01/app/Controllers/SolicitudController.php", "line": 50, "end_line": 95}, {"path":"erick-lab-01/app/Controllers/SolicitudController.php","line":170,"end_line":186}]
+    },
+    {
+      "id": "vistaCuenta", "type": "frontend", "label": "Vistas de usuario", "sublabel": "Login y perfil", "pos": [513, 22], "size": [176, 70],
+      "sources": [{"path": "erick-lab-01/app/Views/login.php", "line": 1, "end_line": 16}]
+    },
+    {
+      "id": "vistaAvisos", "type": "frontend", "label": "Vistas de avisos", "sublabel": "Formularios e historial", "pos": [513, 582], "size": [176, 70],
+      "sources": [{"path": "erick-lab-01/app/Views/detalle-aviso.php", "line": 5, "end_line": 35}]
+    },
+    {
+      "id": "modUsuario", "type": "backend", "label": "Modelo Usuario", "sublabel": "Consultas preparadas", "pos": [816, 166], "size": [168, 76],
+      "sources": [{"path": "erick-lab-01/app/Models/Usuario.php", "line": 9, "end_line": 62}]
+    },
+    {
+      "id": "modSolicitud", "type": "backend", "label": "Modelo Solicitud", "sublabel": "SQL e historial atómico", "pos": [816, 410], "size": [168, 76],
+      "sources": [{"path": "erick-lab-01/app/Models/Solicitud.php", "line": 22, "end_line": 53}, {"path":"erick-lab-01/app/Models/Solicitud.php","line":150,"end_line":190}]
+    },
+    {
+      "id": "pdo", "type": "security", "label": "Conexión PDO", "sublabel": "MySQL · sin emulación", "pos": [1115, 300], "size": [166, 74],
+      "sources": [{"path": "erick-lab-01/app/Database/Conexion.php", "line": 7, "end_line": 28}]
+    },
+    {
+      "id": "mysql", "type": "database", "label": "MySQL 8", "sublabel": "Usuarios e incidencias", "pos": [1372, 300], "size": [148, 74],
+      "sources": [{"path": "entorno-p2/compose.yaml", "line": 4, "end_line": 15}]
+    }
+  ],
+  "connections": [
+    {"id":"http","from":"navegador","to":"router","label":"GET / POST"},
+    {"id":"routeU","from":"router","to":"cuenta","label":"/registro · /login"},
+    {"id":"routeS","from":"router","to":"avisos","label":"/solicitar · /aviso"},
+    {"id":"userModel","from":"cuenta","to":"modUsuario"},
+    {"id":"requestModel","from":"avisos","to":"modSolicitud"},
+    {"id":"userPdo","from":"modUsuario","to":"pdo","label":"prepare / execute"},
+    {"id":"requestPdo","from":"modSolicitud","to":"pdo","label":"prepare / execute"},
+    {"id":"database","from":"pdo","to":"mysql","label":"SQL"},
+    {"id":"viewU","from":"cuenta","to":"vistaCuenta","label":"render"},
+    {"id":"viewS","from":"avisos","to":"vistaAvisos","label":"render"}
+  ],
+  "cards": [
+    {"dot":"emerald","title":"Comprobado en el repositorio","items":["Solo representa el código implementado en el commit indicado.","Registro, inicio de sesión, perfil y solicitudes de cliente.","La creación y cancelación escriben el historial en la misma transacción."]},
+    {"dot":"cyan","title":"MVC en palabras sencillas","items":["La ruta recibe la petición; el controlador decide y valida.","El modelo utiliza PDO para hablar con MySQL.","La vista muestra datos escapados con htmlspecialchars."]},
+    {"dot":"amber","title":"Aún falta integrar","items":["No se incluyen como implementados la administración, los técnicos ni el calendario.","El diagrama de estados adjunto muestra lo exigido por el enunciado, no todo lo ya programado."]}
+  ]
+}

@@ -27,3 +27,10 @@ Doc_Captures_Print/*.webp
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Archify: conservar las fuentes y HTML útiles, no los recibos/capturas de QA.
+.archify/**/*.delivery.json
+.archify/**/*.finalize*.json
+.archify/**/*.browser-check.json
+.archify/**/*.visual-check.*
+.archify/**/review-*/

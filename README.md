@@ -84,5 +84,12 @@ elimina también el volumen de MySQL. Para pausar, usa `docker compose stop`.
 
 Guía de entrada para Paula: `GUIA-COLABORACION-PAULA.md`.
 
+## Apoyo para la defensa y la documentación
+
+- `documentacion/DEFENSA-TECNICA-ERICK-P2.md` — guion de menos de dos minutos, archivos reales, preguntas y ensayo.
+- `documentacion/GUIA-ARCHIFY-Y-MAPA-MANUAL-P2.md` — dos diagramas HTML, alcance verificado y guía para dibujar el mapa obligatorio a mano.
+- `documentacion/SECCION-WORD-ERICK-P2.md` — texto base de la aportación de Erick para revisar con su propia voz.
+- Los diagramas Archify están en `.archify/architecture-reparaya-20261107-072710/` y `.archify/lifecycle-incidencias-20261107-072710/`. Son **material de apoyo**, no sustituyen el mapa manuscrito ni acreditan funciones pendientes.
+
 Esta copia inicial no sustituye el trabajo ni las decisiones de Paula. El objetivo
 es que ambos puedan construir y comprobar la misma versión del proyecto.
