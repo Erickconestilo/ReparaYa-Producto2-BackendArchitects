@@ -109,7 +109,7 @@ $cancelarAjeno = Http '/aviso/cancelar' 'POST' @{_csrf=$tokenClienteSegundo;id=$
 Probar ($cancelarAjeno.Status -eq 404) 'Segundo cliente no puede cancelar cita ajena (404)'
 
 # Comprobación SQL auténtica: estado + número de eventos de historial.
-docker compose exec -T web php tests/comprobar-solicitudes-ficticias.php $codigoUrgente $codigoEstandar
+docker compose -f (Join-Path $PSScriptRoot 'compose.yaml') exec -T web php tests/comprobar-solicitudes-ficticias.php $codigoUrgente $codigoEstandar
 Probar ($LASTEXITCODE -eq 0) 'Estado e historial almacenados en MySQL'
 Write-Output "TOTAL_PRUEBAS_SOLICITUDES=$pases/20"
 Write-Output "CODIGO_URGENTE=$codigoUrgente CODIGO_ESTANDAR=$codigoEstandar"

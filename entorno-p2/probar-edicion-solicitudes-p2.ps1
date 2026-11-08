@@ -108,7 +108,7 @@ try {
     Probar ((Http '/aviso/editar' 'POST' $nuevos).Status -eq 404) 'Segundo cliente no puede modificar aviso ajeno'
     Probar ((Http '/aviso/editar' 'PUT').Status -eq 405) 'Metodo no autorizado rechazado (405)'
 
-    docker compose exec -T web php tests/comprobar-edicion-ficticia.php $codigoEstandar $codigoUrgente
+    docker compose -f (Join-Path $PSScriptRoot 'compose.yaml') exec -T web php tests/comprobar-edicion-ficticia.php $codigoEstandar $codigoUrgente
     Probar ($LASTEXITCODE -eq 0) 'Edicion, historiales y estados comprobados en MySQL'
     Write-Output "TOTAL_PRUEBAS_EDICION=$pases/26"
     Write-Output "CODIGOS_DEMO_EDITADO=$codigoEstandar URGENTE=$codigoUrgente"

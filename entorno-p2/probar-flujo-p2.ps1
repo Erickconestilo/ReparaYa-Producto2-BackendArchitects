@@ -111,7 +111,7 @@ Comprobar ($loginNuevo.StatusCode -eq 303) 'Nuevo correo y contraseña permiten 
 $noExiste = Solicitud '/no-existe' 'GET' $sesion
 Comprobar ($noExiste.StatusCode -eq 404) 'Ruta inexistente sigue devolviendo 404'
 
-docker compose exec -T web php tests/comprobar-usuario-ficticio.php $correoNuevo
+docker compose -f (Join-Path $PSScriptRoot 'compose.yaml') exec -T web php tests/comprobar-usuario-ficticio.php $correoNuevo
 Comprobar ($LASTEXITCODE -eq 0) 'Hash bcrypt/PASSWORD_DEFAULT verificado en la BD'
 Write-Output "TOTAL_PRUEBAS=$pasadas/22"
 Write-Output "CUENTA_FICTICIA=$correoNuevo"
