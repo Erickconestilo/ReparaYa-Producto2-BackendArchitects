@@ -176,4 +176,86 @@ $consulta = $pdo->prepare('SELECT COUNT(*) FROM historial_estados WHERE incidenc
 $consulta->execute(['id' => $incidenciaId]);
 verificar((int) $consulta->fetchColumn() === 4, 'El historial contiene cuatro eventos en MySQL');
 
-echo 'TOTAL_PRUEBAS_HTTP=' . $pases . '/20' . PHP_EOL;
+// Fase 2: CRUD logico de tecnicos y servicios por las rutas reales con sus permisos.
+verificar($cliente->pedir('/admin/servicios')['codigo'] === 403,
+    'Un cliente no puede consultar precios de administracion');
+verificar($tecnico->pedir('/admin/tecnicos')['codigo'] === 403,
+    'Un tecnico no puede administrar otros tecnicos');
+$serviciosHtml = $admin->pedir('/admin/servicios');
+verificar($serviciosHtml['codigo'] === 200 && str_contains($serviciosHtml['cuerpo'], 'Servicios y especialidades'),
+    'El admin abre la gestion de servicios');
+
+$nuevoServicio = 'Servicio HTTP ' . $idAleatorio;
+$datosServicio = ['nombre' => $nuevoServicio, 'precio' => '75.25', '_csrf' => 'falso'];
+verificar($admin->pedir('/admin/servicios/crear', $datosServicio, 'POST')['codigo'] === 403,
+    'Crear servicios exige CSRF correcto');
+$datosServicio['_csrf'] = $tokenAdmin;
+$datosServicio['precio'] = '-1';
+verificar($admin->pedir('/admin/servicios/crear', $datosServicio, 'POST')['codigo'] === 422,
+    'El HTTP rechaza un precio negativo');
+$datosServicio['precio'] = '75.25';
+verificar($admin->pedir('/admin/servicios/crear', $datosServicio, 'POST')['codigo'] === 303,
+    'El admin crea un servicio por HTTP');
+verificar(str_contains($admin->pedir('/admin/servicios')['cuerpo'], $nuevoServicio),
+    'El nuevo servicio aparece en la gestion');
+verificar($admin->pedir('/admin/servicios/crear', $datosServicio, 'POST')['codigo'] === 409,
+    'No se crean especialidades duplicadas');
+$consulta = $pdo->prepare('SELECT id FROM especialidades WHERE nombre_especialidad = :nombre');
+$consulta->execute(['nombre' => $nuevoServicio]);
+$nuevoServicioId = (int) $consulta->fetchColumn();
+$cambioServicio = [
+    '_csrf' => $tokenAdmin, 'id' => $nuevoServicioId,
+    'nombre' => $nuevoServicio, 'precio' => '81.50',
+];
+verificar($admin->pedir('/admin/servicios/actualizar', $cambioServicio, 'POST')['codigo'] === 303,
+    'El admin desactiva un servicio mediante actualizacion');
+verificar(!str_contains($cliente->pedir('/solicitar')['cuerpo'], $nuevoServicio),
+    'El cliente no puede elegir el servicio desactivado');
+$cambioServicio['activa'] = '1';
+verificar($admin->pedir('/admin/servicios/actualizar', $cambioServicio, 'POST')['codigo'] === 303,
+    'El admin reactiva el servicio');
+verificar(str_contains($cliente->pedir('/solicitar')['cuerpo'], $nuevoServicio),
+    'El servicio reactivado vuelve a mostrarse al cliente');
+
+$tecnicosHtml = $admin->pedir('/admin/tecnicos');
+verificar($tecnicosHtml['codigo'] === 200 && str_contains($tecnicosHtml['cuerpo'], 'Gestión de técnicos'),
+    'El admin abre la gestion de tecnicos');
+$nuevoCorreo = 'alta-http-' . $idAleatorio . '@example.test';
+$datosTecnico = [
+    '_csrf' => 'falso', 'nombre' => 'Tecnico creado desde HTTP',
+    'correo' => $nuevoCorreo, 'clave' => $clave, 'especialidad_id' => $nuevoServicioId,
+];
+verificar($admin->pedir('/admin/tecnicos/crear', $datosTecnico, 'POST')['codigo'] === 403,
+    'Crear tecnicos tambien exige CSRF');
+$datosTecnico['_csrf'] = $tokenAdmin;
+$datosTecnico['clave'] = '123';
+verificar($admin->pedir('/admin/tecnicos/crear', $datosTecnico, 'POST')['codigo'] === 422,
+    'Contrasena inicial demasiado corta rechazada');
+$datosTecnico['clave'] = $clave;
+verificar($admin->pedir('/admin/tecnicos/crear', $datosTecnico, 'POST')['codigo'] === 303,
+    'El admin crea la cuenta y el perfil tecnico');
+$consulta = $pdo->prepare('SELECT t.id, t.disponible, u.password FROM tecnicos t
+                          JOIN usuarios u ON u.id = t.usuario_id WHERE u.email = :correo');
+$consulta->execute(['correo' => $nuevoCorreo]);
+$perfilCreado = $consulta->fetch();
+$nuevoTecnicoId = (int) ($perfilCreado['id'] ?? 0);
+verificar($nuevoTecnicoId > 0 && password_verify($clave, $perfilCreado['password']),
+    'Alta HTTP almacena el password con hash y perfil asociado');
+$cambioTecnico = [
+    '_csrf' => $tokenAdmin, 'id' => $nuevoTecnicoId, 'nombre' => 'Tecnico HTTP editado',
+    'especialidad_id' => $nuevoServicioId,
+];
+verificar($admin->pedir('/admin/tecnicos/actualizar', $cambioTecnico, 'POST')['codigo'] === 303,
+    'El admin desactiva un tecnico sin tareas');
+$consulta = $pdo->prepare('SELECT disponible FROM tecnicos WHERE id = :id');
+$consulta->execute(['id' => $nuevoTecnicoId]);
+verificar((int) $consulta->fetchColumn() === 0, 'La baja logica del tecnico persiste');
+$cambioTecnico['disponible'] = '1';
+verificar($admin->pedir('/admin/tecnicos/actualizar', $cambioTecnico, 'POST')['codigo'] === 303,
+    'El admin reactiva el tecnico');
+verificar($admin->pedir('/admin/tecnicos/crear', $datosTecnico, 'POST')['codigo'] === 409,
+    'Correo duplicado devuelve 409 sin crear otra cuenta');
+verificar($admin->pedir('/admin/servicios/crear')['codigo'] === 405,
+    'El formulario de alta no acepta GET');
+
+echo 'TOTAL_PRUEBAS_HTTP=' . $pases . PHP_EOL;

@@ -11,7 +11,8 @@ try {
         '--mount', "type=bind,source=$raiz\SQL-oficial-original\bbddReparaYa(1).sql,target=/docker-entrypoint-initdb.d/01_original.sql,readonly",
         '--mount', "type=bind,source=$raiz\migraciones\20261106_01_ampliacion_p2.sql,target=/docker-entrypoint-initdb.d/02_ampliacion.sql,readonly",
         '--mount', "type=bind,source=$raiz\migraciones\20261106_02_datos_demo.sql,target=/docker-entrypoint-initdb.d/03_demo.sql,readonly",
-        '--mount', "type=bind,source=$raiz\migraciones\20261106_03_normalizar_enum_urgencia.sql,target=/docker-entrypoint-initdb.d/04_urgencia.sql,readonly"
+        '--mount', "type=bind,source=$raiz\migraciones\20261106_03_normalizar_enum_urgencia.sql,target=/docker-entrypoint-initdb.d/04_urgencia.sql,readonly",
+        '--mount', "type=bind,source=$raiz\migraciones\20261108_05_catalogo_activo.sql,target=/docker-entrypoint-initdb.d/05_catalogo_activo.sql,readonly"
     )
     & docker run -d --name $nombre --network none --tmpfs /var/lib/mysql:rw `
         --env "MYSQL_ROOT_PASSWORD=$claveTemporal" `
@@ -52,6 +53,18 @@ try {
         --env INTEGRATION_TEST_EPHEMERAL=1 `
         reparaya-p2-web:local php tests/comprobar-integracion-equipo-ficticia.php
     if ($LASTEXITCODE -ne 0) { throw 'No supero las pruebas de integracion.' }
+
+    & docker run --rm --network "container:$nombre" --read-only `
+        --mount "type=bind,source=$raiz\erick-lab-01,target=/lab,readonly" `
+        -w /lab `
+        --env DB_HOST=127.0.0.1 `
+        --env DB_PORT=3306 `
+        --env DB_NAME=uoc_p2_integracion_prueba `
+        --env DB_USER=root `
+        --env "DB_PASSWORD=$claveTemporal" `
+        --env INTEGRATION_TEST_EPHEMERAL=1 `
+        reparaya-p2-web:local php tests/comprobar-catalogo-ficticio.php
+    if ($LASTEXITCODE -ne 0) { throw 'No supero las pruebas MySQL del catalogo.' }
 
     # Servidor PHP HTTP solo dentro del espacio de red del contenedor temporal.
     # No se publica ningun puerto en el equipo del usuario.
