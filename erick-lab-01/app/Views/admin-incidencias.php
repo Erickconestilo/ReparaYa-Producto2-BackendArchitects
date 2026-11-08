@@ -6,14 +6,25 @@ $esc = static fn (mixed $valor): string => htmlspecialchars((string) $valor, ENT
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Administración de reparaciones | ReparaYa</title><link rel="stylesheet" href="/assets/reparaya.css"></head>
 <body class="interior">
     <?php require __DIR__ . '/_cabecera.php'; ?>
-    <h1>Administracion de reparaciones</h1>
+    <h1>Administración de reparaciones</h1>
     <p><a href="/perfil">Mi perfil</a> · <a href="/admin/calendario">Calendario</a> · <a href="/admin/servicios">Servicios</a> · <a href="/admin/tecnicos">Técnicos</a></p>
     <?php if (($_GET['asignada'] ?? '') === 'si'): ?>
-        <p role="status">La reparacion se ha asignado correctamente.</p>
+        <p role="status">La reparación se ha asignado correctamente.</p>
     <?php endif; ?>
-    <p>Solo se puede asignar una reparacion pendiente a un tecnico disponible de su especialidad.</p>
+    <p>Solo se puede asignar una reparación pendiente a un técnico disponible de su especialidad.</p>
+    <form method="get" action="/admin">
+        <label for="estado">Filtrar por estado</label>
+        <select id="estado" name="estado">
+            <option value="">Todos los estados</option>
+            <?php foreach ($estadosValidos as $estado): ?>
+                <option value="<?= $esc($estado) ?>" <?= $estadoFiltro === $estado ? 'selected' : '' ?>><?= $esc($estado) ?></option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit">Filtrar</button>
+        <?php if ($estadoFiltro !== ''): ?><a href="/admin">Mostrar todas</a><?php endif; ?>
+    </form>
     <div class="tabla-desplazable"><table>
-        <thead><tr><th>Localizador</th><th>Cliente</th><th>Servicio</th><th>Cita</th><th>Estado</th><th>Tecnico</th><th>Accion</th></tr></thead>
+        <thead><tr><th>Localizador</th><th>Cliente</th><th>Servicio</th><th>Cita</th><th>Estado</th><th>Técnico</th><th>Acción</th></tr></thead>
         <tbody>
         <?php foreach ($incidencias as $incidencia): ?>
             <tr>
@@ -46,6 +57,6 @@ $esc = static fn (mixed $valor): string => htmlspecialchars((string) $valor, ENT
         <?php endforeach; ?>
         </tbody>
     </table></div>
-    <?php if (!$incidencias): ?><p>No hay reparaciones registradas.</p><?php endif; ?>
+    <?php if (!$incidencias): ?><p><?= $estadoFiltro === '' ? 'No hay reparaciones registradas.' : 'No hay reparaciones con ese estado.' ?></p><?php endif; ?>
 </body>
 </html>

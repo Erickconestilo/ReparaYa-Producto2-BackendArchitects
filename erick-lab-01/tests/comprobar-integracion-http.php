@@ -123,6 +123,12 @@ $panel = $admin->pedir('/admin');
 verificar($panel['codigo'] === 200 && str_contains($panel['cuerpo'], $codigo),
     'El admin ve la incidencia de prueba');
 verificar(str_contains($panel['cuerpo'], 'Tecnico HTTP de prueba'), 'El admin ve su tecnico compatible');
+verificar(str_contains($admin->pedir('/admin?estado=Pendiente')['cuerpo'], $codigo),
+    'El filtro Pendiente muestra la reparacion todavia sin asignar');
+verificar(!str_contains($admin->pedir('/admin?estado=Asignada')['cuerpo'], $codigo),
+    'El filtro Asignada excluye la reparacion pendiente');
+verificar($admin->pedir('/admin?estado=no-valido')['codigo'] === 422,
+    'El panel rechaza filtros de estado no validos');
 preg_match('/name="_csrf" value="([a-f0-9]{64})"/', $panel['cuerpo'], $coincidencias);
 $tokenAdmin = $coincidencias[1] ?? '';
 verificar($admin->pedir('/admin/asignar', [
@@ -132,6 +138,8 @@ $asignada = $admin->pedir('/admin/asignar', [
     '_csrf' => $tokenAdmin, 'incidencia_id' => $incidenciaId, 'tecnico_id' => $tecnicoId,
 ], 'POST');
 verificar($asignada['codigo'] === 303, 'La asignacion correcta devuelve 303');
+verificar(str_contains($admin->pedir('/admin?estado=Asignada')['cuerpo'], $codigo),
+    'El filtro Asignada refleja la reparacion recien asignada');
 $fecha = substr($fechaServicio, 0, 10);
 foreach (['mes', 'semana', 'dia'] as $vista) {
     $calendario = $admin->pedir('/admin/calendario?vista=' . $vista . '&fecha=' . $fecha);
@@ -172,6 +180,8 @@ verificar($tecnico->pedir('/tecnico/aviso/estado', $datos, 'POST')['codigo'] ===
 $detalleFinal = $tecnico->pedir('/tecnico/aviso?id=' . $incidenciaId);
 verificar($detalleFinal['codigo'] === 200 && str_contains($detalleFinal['cuerpo'], 'Finalizada'),
     'El detalle refleja el estado final');
+verificar(str_contains($admin->pedir('/admin?estado=Finalizada')['cuerpo'], $codigo),
+    'El filtro Finalizada refleja el estado tras el trabajo del tecnico');
 $consulta = $pdo->prepare('SELECT COUNT(*) FROM historial_estados WHERE incidencia_id = :id');
 $consulta->execute(['id' => $incidenciaId]);
 verificar((int) $consulta->fetchColumn() === 4, 'El historial contiene cuatro eventos en MySQL');

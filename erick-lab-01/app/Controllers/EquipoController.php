@@ -44,11 +44,17 @@ final class EquipoController
     public function administrar(): void
     {
         if ($this->usuarioConRol('admin') < 1) { return; }
+        $estadoFiltro = (string) ($_GET['estado'] ?? '');
+        $estadosValidos = ['Pendiente', 'Asignada', 'En curso', 'Finalizada', 'Cancelada'];
+        if ($estadoFiltro !== '' && !in_array($estadoFiltro, $estadosValidos, true)) {
+            $this->error(422, 'Estado de filtro no válido.');
+            return;
+        }
         try {
-            $incidencias = GestionEquipo::incidenciasParaAdmin();
+            $incidencias = GestionEquipo::incidenciasParaAdmin($estadoFiltro === '' ? null : $estadoFiltro);
             $tecnicos = GestionEquipo::tecnicosDisponibles();
         } catch (Throwable $error) {
-            $this->error(500, 'No se ha podido cargar el panel de administracion.');
+            $this->error(500, 'No se ha podido cargar el panel de administración.');
             return;
         }
         $csrfToken = UsuarioController::token();

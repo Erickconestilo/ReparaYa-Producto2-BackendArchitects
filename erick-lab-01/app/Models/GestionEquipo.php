@@ -10,18 +10,22 @@ require_once dirname(__DIR__) . '/Database/Conexion.php';
  */
 final class GestionEquipo
 {
-    public static function incidenciasParaAdmin(): array
+    public static function incidenciasParaAdmin(?string $estado = null): array
     {
-        return Conexion::abrir()->query(
-            'SELECT i.id, i.localizador, i.estado, i.tipo_urgencia, i.fecha_servicio, i.especialidad_id,
+        $sql = 'SELECT i.id, i.localizador, i.estado, i.tipo_urgencia, i.fecha_servicio, i.especialidad_id,
                     e.nombre_especialidad, u.nombre AS cliente,
                     t.nombre_completo AS tecnico
              FROM incidencias i
              JOIN especialidades e ON e.id = i.especialidad_id
              JOIN usuarios u ON u.id = i.cliente_id
-             LEFT JOIN tecnicos t ON t.id = i.tecnico_id
-             ORDER BY i.fecha_servicio DESC, i.id DESC'
-        )->fetchAll();
+             LEFT JOIN tecnicos t ON t.id = i.tecnico_id';
+        if ($estado !== null) {
+            $sql .= ' WHERE i.estado = :estado';
+        }
+        $sql .= ' ORDER BY i.fecha_servicio DESC, i.id DESC';
+        $consulta = Conexion::abrir()->prepare($sql);
+        $consulta->execute($estado === null ? [] : ['estado' => $estado]);
+        return $consulta->fetchAll();
     }
 
     public static function tecnicosDisponibles(): array

@@ -8,7 +8,7 @@ y **Paula Gómez del Águila** como integrantes.
 > No es una fusión definitiva acordada por el equipo, no está incorporada a `main`
 > y no modifica lo que se presentó originalmente en Canvas.
 
-Repositorio público de referencia:
+Repositorio de referencia (acceso según los permisos de GitHub):
 https://github.com/Erickconestilo/ReparaYa-Producto2-BackendArchitects
 
 ## Autoría, coordinación y estado real
@@ -37,18 +37,21 @@ que no haya realizado**. Si vuelve a colaborar, cada aportación futura se
 documentará según su autor real. De momento se desconoce si continuará
 participando; la falta de respuesta no equivale a una renuncia.
 
-Se validaron **155/155 comprobaciones automatizadas** (68 de usuarios/solicitudes/
-edición y 87 de integración) y un recorrido manual de administrador a técnico.
+Se validaron **160 comprobaciones automatizadas**: 68 de usuarios/solicitudes/
+edición en una revisión anterior y 92 de integración en la última regresión
+del 08/11/2026, además de un recorrido manual de administrador a técnico.
 Se ha iniciado la mejora de interfaz: portada con accesos claros, estilos
 compartidos para formularios y paneles, navegación contextual por zona y tablas
 desplazables en pantallas pequeñas. Tras los cambios, **15 plantillas PHP pasaron
-lint**, las **87/87 pruebas aisladas** volvieron a pasar, y portada, registro,
+lint**, las **92/92 pruebas aisladas** pasaron después de incorporar
+un filtro por estado en el panel de administración, y portada, registro,
 login y hoja CSS respondieron HTTP 200. Falta una revisión visual completa
 en varios tamaños y dispositivos; no se ha verificado AWS y no se puede
 considerar un producto terminado.
 
-Antes de publicar esta rama, fusionarla o presentarla como versión conjunta
-definitiva, Erick decidirá el siguiente paso respecto a su trabajo y se
+La publicación de esta rama de integración fue autorizada por Erick
+el 08/11/2026; **no supone su fusión a `main` ni una nueva entrega académica**.
+Antes de fusionarla o presentarla como versión conjunta definitiva, se
 procurará revisar con Paula qué partes de su entrega desea incorporar o
 corregir. La decisión de continuar desarrollando por separado no requiere
 atribuir a Paula la autoría de las mejoras posteriores.
@@ -57,6 +60,8 @@ Detalle y cronología: `documentacion/INTEGRACION-AUTONOMA-ERICK-20261108.md`,
 `documentacion/INTEGRACION-LOCAL-FASE1-20261108.md`,
 `documentacion/INTEGRACION-LOCAL-FASE2-20261108.md` y
 `documentacion/VALIDACION-DOCKER-NAVEGADOR-20261108.md`.
+La última ampliación está resumida en
+`documentacion/CIERRE-CANDIDATO-P2-20261108.md`.
 
 ## Estructura
 
