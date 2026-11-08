@@ -39,7 +39,12 @@ participando; la falta de respuesta no equivale a una renuncia.
 
 Se validaron **155/155 comprobaciones automatizadas** (68 de usuarios/solicitudes/
 edición y 87 de integración) y un recorrido manual de administrador a técnico.
-La interfaz visual sigue siendo básica, no se ha verificado AWS y no se puede
+Se ha iniciado la mejora de interfaz: portada con accesos claros, estilos
+compartidos para formularios y paneles, navegación contextual por zona y tablas
+desplazables en pantallas pequeñas. Tras los cambios, **15 plantillas PHP pasaron
+lint**, las **87/87 pruebas aisladas** volvieron a pasar, y portada, registro,
+login y hoja CSS respondieron HTTP 200. Falta una revisión visual completa
+en varios tamaños y dispositivos; no se ha verificado AWS y no se puede
 considerar un producto terminado.
 
 Antes de publicar esta rama, fusionarla o presentarla como versión conjunta
@@ -115,7 +120,7 @@ Guía de entrada para Paula: `GUIA-COLABORACION-PAULA.md`.
 
 ## Apoyo para la defensa y la documentación
 
-- `documentacion/DEFENSA-TECNICA-ERICK-P2.md` — guion de menos de dos minutos, archivos reales, preguntas y ensayo.
+- `documentacion/DEFENSA-TECNICA-ERICK-P2.md` — guion de estudio, archivos reales, preguntas y ensayo. Erick ha indicado que su defensa grabada de 2:35 recibió aprobación; el guion anterior no es la comprobación de la entrega.
 - `documentacion/GUIA-ARCHIFY-Y-MAPA-MANUAL-P2.md` — dos diagramas HTML, alcance verificado y guía para dibujar el mapa obligatorio a mano.
 - `documentacion/SECCION-WORD-ERICK-P2.md` — texto base de la aportación de Erick para revisar con su propia voz.
 - Los diagramas Archify están en `.archify/architecture-reparaya-20261107-072710/` y `.archify/lifecycle-incidencias-20261107-072710/`. Son **material de apoyo**, no sustituyen el mapa manuscrito ni acreditan funciones pendientes.

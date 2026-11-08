@@ -22,6 +22,7 @@ $url = static fn (string $modo, DateTimeImmutable $fecha): string =>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Calendario de reparaciones | ReparaYa</title>
+    <link rel="stylesheet" href="/assets/reparaya.css">
     <style>
         body { font: 16px/1.5 system-ui,sans-serif; max-width: 1150px; margin: 1.5rem auto; padding: 0 1rem; color: #172633; }
         a { color: #165a89; }
@@ -38,7 +39,8 @@ $url = static fn (string $modo, DateTimeImmutable $fecha): string =>
         .lista li { padding: .5rem; margin: .4rem 0; border-left: 3px solid #2b679e; background: #eff5fa; }
     </style>
 </head>
-<body>
+<body class="interior">
+    <?php require __DIR__ . '/_cabecera.php'; ?>
     <h1>Calendario de reparaciones</h1>
     <p><a href="/admin">Volver a administracion</a></p>
     <nav aria-label="Vistas del calendario">

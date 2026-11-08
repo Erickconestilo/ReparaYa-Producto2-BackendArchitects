@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="es">
-<head><meta charset="UTF-8"><title>Detalle de reparación | ReparaYa</title></head>
-<body>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Detalle de reparación | ReparaYa</title><link rel="stylesheet" href="/assets/reparaya.css"></head>
+<body class="interior">
+    <?php require __DIR__ . '/_cabecera.php'; ?>
     <h1>Incidencia <?= htmlspecialchars($aviso['localizador'], ENT_QUOTES, 'UTF-8') ?></h1>
     <p><a href="/mis-avisos">Volver a mis avisos</a></p>
     <?php if (($_GET['cancelada'] ?? '') === 'si'): ?><p>Solicitud cancelada.</p><?php endif; ?>

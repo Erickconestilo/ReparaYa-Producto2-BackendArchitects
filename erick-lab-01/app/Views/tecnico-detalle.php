@@ -1,8 +1,9 @@
 <?php $esc = static fn (mixed $valor): string => htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8'); ?>
 <!doctype html>
 <html lang="es">
-<head><meta charset="utf-8"><title>Reparacion asignada | ReparaYa</title></head>
-<body>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Reparacion asignada | ReparaYa</title><link rel="stylesheet" href="/assets/reparaya.css"></head>
+<body class="interior">
+    <?php require __DIR__ . '/_cabecera.php'; ?>
     <p><a href="/tecnico">Volver a mis reparaciones</a></p>
     <h1>Reparacion <?= $esc($incidencia['localizador']) ?></h1>
     <?php if (($_GET['estado'] ?? '') === 'ok'): ?><p role="status">Estado actualizado correctamente.</p><?php endif; ?>

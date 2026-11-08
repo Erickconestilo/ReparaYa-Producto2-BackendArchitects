@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="es">
-<head><meta charset="UTF-8"><title>Mis avisos | ReparaYa</title></head>
-<body>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mis avisos | ReparaYa</title><link rel="stylesheet" href="/assets/reparaya.css"></head>
+<body class="interior">
+    <?php require __DIR__ . '/_cabecera.php'; ?>
     <h1>Mis avisos</h1>
     <p><a href="/solicitar">Crear solicitud</a> · <a href="/perfil">Mi perfil</a></p>
     <?php if (isset($_GET['creada'])): ?><p>Solicitud guardada: <?= htmlspecialchars((string) $_GET['creada'], ENT_QUOTES, 'UTF-8') ?></p><?php endif; ?>

@@ -2,9 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mi perfil | ReparaYa</title>
+    <link rel="stylesheet" href="/assets/reparaya.css">
 </head>
-<body>
+<body class="interior">
+    <?php require __DIR__ . '/_cabecera.php'; ?>
     <h1>Mi perfil</h1>
     <?php if ($usuario['rol'] === 'particular'): ?>
         <p><a href="/solicitar">Solicitar reparación</a> · <a href="/mis-avisos">Mis avisos</a></p>

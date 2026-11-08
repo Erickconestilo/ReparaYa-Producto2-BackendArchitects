@@ -3,15 +3,16 @@ $esc = static fn (mixed $valor): string => htmlspecialchars((string) $valor, ENT
 ?>
 <!doctype html>
 <html lang="es">
-<head><meta charset="utf-8"><title>Administracion de reparaciones | ReparaYa</title></head>
-<body>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Administración de reparaciones | ReparaYa</title><link rel="stylesheet" href="/assets/reparaya.css"></head>
+<body class="interior">
+    <?php require __DIR__ . '/_cabecera.php'; ?>
     <h1>Administracion de reparaciones</h1>
     <p><a href="/perfil">Mi perfil</a> · <a href="/admin/calendario">Calendario</a> · <a href="/admin/servicios">Servicios</a> · <a href="/admin/tecnicos">Técnicos</a></p>
     <?php if (($_GET['asignada'] ?? '') === 'si'): ?>
         <p role="status">La reparacion se ha asignado correctamente.</p>
     <?php endif; ?>
     <p>Solo se puede asignar una reparacion pendiente a un tecnico disponible de su especialidad.</p>
-    <table border="1" cellpadding="8">
+    <div class="tabla-desplazable"><table>
         <thead><tr><th>Localizador</th><th>Cliente</th><th>Servicio</th><th>Cita</th><th>Estado</th><th>Tecnico</th><th>Accion</th></tr></thead>
         <tbody>
         <?php foreach ($incidencias as $incidencia): ?>
@@ -44,7 +45,7 @@ $esc = static fn (mixed $valor): string => htmlspecialchars((string) $valor, ENT
             </tr>
         <?php endforeach; ?>
         </tbody>
-    </table>
+    </table></div>
     <?php if (!$incidencias): ?><p>No hay reparaciones registradas.</p><?php endif; ?>
 </body>
 </html>

@@ -1,8 +1,9 @@
 <?php $esc = static fn (mixed $valor): string => htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8'); ?>
 <!doctype html>
 <html lang="es">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Técnicos | ReparaYa</title></head>
-<body>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Técnicos | ReparaYa</title><link rel="stylesheet" href="/assets/reparaya.css"></head>
+<body class="interior">
+    <?php require __DIR__ . '/_cabecera.php'; ?>
     <h1>Gestión de técnicos</h1>
     <p><a href="/admin">Volver al panel</a> · <a href="/admin/servicios">Servicios y precios</a></p>
     <?php if (($_GET['creado'] ?? '') === 'si'): ?><p role="status">Técnico creado correctamente.</p><?php endif; ?>

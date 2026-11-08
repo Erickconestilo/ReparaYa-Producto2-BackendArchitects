@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="es">
-<head><meta charset="UTF-8"><title>Nueva reparación | ReparaYa</title></head>
-<body>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Nueva reparación | ReparaYa</title><link rel="stylesheet" href="/assets/reparaya.css"></head>
+<body class="interior">
+    <?php require __DIR__ . '/_cabecera.php'; ?>
     <h1>Solicitar una reparación</h1>
     <p><a href="/mis-avisos">Mis avisos</a> · <a href="/perfil">Mi perfil</a></p>
     <p>Una solicitud <strong>estándar</strong> requiere 48 horas como mínimo. Una <strong>urgente</strong> puede hacerse antes.</p>

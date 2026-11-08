@@ -2,9 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Iniciar sesión | ReparaYa</title>
+    <link rel="stylesheet" href="/assets/reparaya.css">
 </head>
-<body>
+<body class="interior">
+    <?php require __DIR__ . '/_cabecera.php'; ?>
     <h1>Entrar en ReparaYa</h1>
     <?php if ($registroCorrecto): ?>
         <p>Cuenta de prueba creada. Ahora inicia sesión.</p>
