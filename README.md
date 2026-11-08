@@ -29,14 +29,24 @@ https://github.com/Erickconestilo/ReparaYa-Producto2-BackendArchitects
   indicaciones de Erick; el historial Git conserva los commits realizados por él.
   El resultado debe ser comprendido y revisado por sus integrantes.
 
+**Autoría de los cambios posteriores:** la integración actual y los nuevos
+desarrollos que Erick realice por su cuenta se atribuirán a **Erick**, indicando
+el apoyo de IA cuando corresponda. Los aportes verificables de Paula seguirán
+reconocidos como suyos, pero **no se le adjudicarán funciones o cambios nuevos
+que no haya realizado**. Si vuelve a colaborar, cada aportación futura se
+documentará según su autor real. De momento se desconoce si continuará
+participando; la falta de respuesta no equivale a una renuncia.
+
 Se validaron **155/155 comprobaciones automatizadas** (68 de usuarios/solicitudes/
 edición y 87 de integración) y un recorrido manual de administrador a técnico.
 La interfaz visual sigue siendo básica, no se ha verificado AWS y no se puede
 considerar un producto terminado.
 
 Antes de publicar esta rama, fusionarla o presentarla como versión conjunta
-definitiva, Erick decidirá el siguiente paso y se procurará revisar con Paula
-qué partes de su entrega desea incorporar o corregir.
+definitiva, Erick decidirá el siguiente paso respecto a su trabajo y se
+procurará revisar con Paula qué partes de su entrega desea incorporar o
+corregir. La decisión de continuar desarrollando por separado no requiere
+atribuir a Paula la autoría de las mejoras posteriores.
 
 Detalle y cronología: `documentacion/INTEGRACION-AUTONOMA-ERICK-20261108.md`,
 `documentacion/INTEGRACION-LOCAL-FASE1-20261108.md`,
