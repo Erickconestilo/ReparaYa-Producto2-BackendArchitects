@@ -5,6 +5,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/app/Controllers/InicioController.php';
 require_once dirname(__DIR__) . '/app/Controllers/UsuarioController.php';
 require_once dirname(__DIR__) . '/app/Controllers/SolicitudController.php';
+require_once dirname(__DIR__) . '/app/Controllers/EquipoController.php';
 
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
@@ -69,9 +70,27 @@ if ($ruta === '/' && $metodo === 'GET') {
 } elseif ($ruta === '/aviso/cancelar' && $metodo === 'POST') {
     (new SolicitudController())->cancelar();
 
-} elseif (in_array($ruta, ['/registro', '/login', '/perfil', '/perfil/seguridad', '/salir', '/solicitar', '/mis-avisos', '/aviso', '/aviso/editar', '/aviso/cancelar'], true)) {
+} elseif ($ruta === '/admin' && $metodo === 'GET') {
+    (new EquipoController())->administrar();
+
+} elseif ($ruta === '/admin/asignar' && $metodo === 'POST') {
+    (new EquipoController())->asignar();
+
+} elseif ($ruta === '/admin/calendario' && $metodo === 'GET') {
+    (new EquipoController())->calendario();
+
+} elseif ($ruta === '/tecnico' && $metodo === 'GET') {
+    (new EquipoController())->misIncidenciasTecnico();
+
+} elseif ($ruta === '/tecnico/aviso' && $metodo === 'GET') {
+    (new EquipoController())->detalleTecnico();
+
+} elseif ($ruta === '/tecnico/aviso/estado' && $metodo === 'POST') {
+    (new EquipoController())->avanzarEstado();
+
+} elseif (in_array($ruta, ['/registro', '/login', '/perfil', '/perfil/seguridad', '/salir', '/solicitar', '/mis-avisos', '/aviso', '/aviso/editar', '/aviso/cancelar', '/admin', '/admin/asignar', '/admin/calendario', '/tecnico', '/tecnico/aviso', '/tecnico/aviso/estado'], true)) {
     http_response_code(405);
-    header('Allow: ' . (in_array($ruta, ['/salir', '/perfil/seguridad', '/aviso/cancelar'], true) ? 'POST' : (in_array($ruta, ['/mis-avisos', '/aviso'], true) ? 'GET' : 'GET, POST')));
+    header('Allow: ' . (in_array($ruta, ['/salir', '/perfil/seguridad', '/aviso/cancelar', '/admin/asignar', '/tecnico/aviso/estado'], true) ? 'POST' : (in_array($ruta, ['/mis-avisos', '/aviso', '/admin', '/admin/calendario', '/tecnico', '/tecnico/aviso'], true) ? 'GET' : 'GET, POST')));
     echo 'Método no permitido';
 
 } else {

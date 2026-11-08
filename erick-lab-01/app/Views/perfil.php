@@ -9,6 +9,12 @@
     <?php if ($usuario['rol'] === 'particular'): ?>
         <p><a href="/solicitar">Solicitar reparación</a> · <a href="/mis-avisos">Mis avisos</a></p>
     <?php endif; ?>
+    <?php if ($usuario['rol'] === 'admin'): ?>
+        <p><a href="/admin">Administrar reparaciones</a></p>
+    <?php endif; ?>
+    <?php if ($usuario['rol'] === 'tecnico'): ?>
+        <p><a href="/tecnico">Mis reparaciones asignadas</a></p>
+    <?php endif; ?>
     <?php if (($_GET['guardado'] ?? '') === 'si'): ?><p>Datos guardados correctamente.</p><?php endif; ?>
     <?php if (($_GET['seguridad'] ?? '') === 'si'): ?><p>Correo y acceso actualizados.</p><?php endif; ?>
     <p>Correo: <?= htmlspecialchars($usuario['email'], ENT_QUOTES, 'UTF-8') ?></p>
