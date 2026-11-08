@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 # Compatible con Windows PowerShell 5.1 y PowerShell 7.
 Add-Type -AssemblyName System.Net.Http -ErrorAction Stop
-$base = 'http://127.0.0.1:8083'
+$base = 'http://127.0.0.1:8084'
 $handler = [System.Net.Http.HttpClientHandler]::new()
 $handler.AllowAutoRedirect = $false
 $handler.UseCookies = $true

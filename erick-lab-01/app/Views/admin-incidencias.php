@@ -6,7 +6,7 @@ $esc = static fn (mixed $valor): string => htmlspecialchars((string) $valor, ENT
 <head><meta charset="utf-8"><title>Administracion de reparaciones | ReparaYa</title></head>
 <body>
     <h1>Administracion de reparaciones</h1>
-    <p><a href="/perfil">Mi perfil</a> · <a href="/admin/calendario">Calendario</a></p>
+    <p><a href="/perfil">Mi perfil</a> · <a href="/admin/calendario">Calendario</a> · <a href="/admin/servicios">Servicios</a> · <a href="/admin/tecnicos">Técnicos</a></p>
     <?php if (($_GET['asignada'] ?? '') === 'si'): ?>
         <p role="status">La reparacion se ha asignado correctamente.</p>
     <?php endif; ?>

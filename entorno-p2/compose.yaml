@@ -1,4 +1,4 @@
-name: reparaya-p2-erick
+name: reparaya-p2-integracion-local
 
 # Entorno P2 local y reproducible para el equipo. NO conecta con la BD de P1.
 services:
@@ -30,6 +30,10 @@ services:
         source: ../migraciones/20261106_03_normalizar_enum_urgencia.sql
         target: /docker-entrypoint-initdb.d/04_normalizar_urgencia.sql
         read_only: true
+      - type: bind
+        source: ../migraciones/20261108_05_catalogo_activo.sql
+        target: /docker-entrypoint-initdb.d/05_catalogo_activo.sql
+        read_only: true
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
       interval: 5s
@@ -41,7 +45,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: reparaya-p2-web:local
+    image: reparaya-p2-web-integracion:local
     restart: "no"
     working_dir: /lab
     entrypoint: ["php"]
@@ -57,7 +61,7 @@ services:
         source: ../erick-lab-01
         target: /lab
     ports:
-      - "127.0.0.1:8083:8000"
+      - "127.0.0.1:8084:8000"
     depends_on:
       db:
         condition: service_healthy

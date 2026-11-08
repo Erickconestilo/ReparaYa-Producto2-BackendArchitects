@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 # Windows PowerShell 5.1 no carga System.Net.Http automáticamente.
 # PowerShell 7 sí, pero lo cargamos explícitamente para admitir ambas versiones.
 Add-Type -AssemblyName System.Net.Http -ErrorAction Stop
-$base = 'http://127.0.0.1:8083'
+$base = 'http://127.0.0.1:8084'
 function CrearCliente() {
     $controlador = [System.Net.Http.HttpClientHandler]::new()
     $controlador.AllowAutoRedirect = $false

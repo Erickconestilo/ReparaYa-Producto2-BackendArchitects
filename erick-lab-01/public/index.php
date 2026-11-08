@@ -6,6 +6,7 @@ require_once dirname(__DIR__) . '/app/Controllers/InicioController.php';
 require_once dirname(__DIR__) . '/app/Controllers/UsuarioController.php';
 require_once dirname(__DIR__) . '/app/Controllers/SolicitudController.php';
 require_once dirname(__DIR__) . '/app/Controllers/EquipoController.php';
+require_once dirname(__DIR__) . '/app/Controllers/CatalogoController.php';
 
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
@@ -79,6 +80,24 @@ if ($ruta === '/' && $metodo === 'GET') {
 } elseif ($ruta === '/admin/calendario' && $metodo === 'GET') {
     (new EquipoController())->calendario();
 
+} elseif ($ruta === '/admin/servicios' && $metodo === 'GET') {
+    (new CatalogoController())->servicios();
+
+} elseif ($ruta === '/admin/servicios/crear' && $metodo === 'POST') {
+    (new CatalogoController())->crearServicio();
+
+} elseif ($ruta === '/admin/servicios/actualizar' && $metodo === 'POST') {
+    (new CatalogoController())->actualizarServicio();
+
+} elseif ($ruta === '/admin/tecnicos' && $metodo === 'GET') {
+    (new CatalogoController())->tecnicos();
+
+} elseif ($ruta === '/admin/tecnicos/crear' && $metodo === 'POST') {
+    (new CatalogoController())->crearTecnico();
+
+} elseif ($ruta === '/admin/tecnicos/actualizar' && $metodo === 'POST') {
+    (new CatalogoController())->actualizarTecnico();
+
 } elseif ($ruta === '/tecnico' && $metodo === 'GET') {
     (new EquipoController())->misIncidenciasTecnico();
 
@@ -88,9 +107,9 @@ if ($ruta === '/' && $metodo === 'GET') {
 } elseif ($ruta === '/tecnico/aviso/estado' && $metodo === 'POST') {
     (new EquipoController())->avanzarEstado();
 
-} elseif (in_array($ruta, ['/registro', '/login', '/perfil', '/perfil/seguridad', '/salir', '/solicitar', '/mis-avisos', '/aviso', '/aviso/editar', '/aviso/cancelar', '/admin', '/admin/asignar', '/admin/calendario', '/tecnico', '/tecnico/aviso', '/tecnico/aviso/estado'], true)) {
+} elseif (in_array($ruta, ['/registro', '/login', '/perfil', '/perfil/seguridad', '/salir', '/solicitar', '/mis-avisos', '/aviso', '/aviso/editar', '/aviso/cancelar', '/admin', '/admin/asignar', '/admin/calendario', '/admin/servicios', '/admin/servicios/crear', '/admin/servicios/actualizar', '/admin/tecnicos', '/admin/tecnicos/crear', '/admin/tecnicos/actualizar', '/tecnico', '/tecnico/aviso', '/tecnico/aviso/estado'], true)) {
     http_response_code(405);
-    header('Allow: ' . (in_array($ruta, ['/salir', '/perfil/seguridad', '/aviso/cancelar', '/admin/asignar', '/tecnico/aviso/estado'], true) ? 'POST' : (in_array($ruta, ['/mis-avisos', '/aviso', '/admin', '/admin/calendario', '/tecnico', '/tecnico/aviso'], true) ? 'GET' : 'GET, POST')));
+    header('Allow: ' . (in_array($ruta, ['/salir', '/perfil/seguridad', '/aviso/cancelar', '/admin/asignar', '/admin/servicios/crear', '/admin/servicios/actualizar', '/admin/tecnicos/crear', '/admin/tecnicos/actualizar', '/tecnico/aviso/estado'], true) ? 'POST' : (in_array($ruta, ['/mis-avisos', '/aviso', '/admin', '/admin/calendario', '/admin/servicios', '/admin/tecnicos', '/tecnico', '/tecnico/aviso'], true) ? 'GET' : 'GET, POST')));
     echo 'Método no permitido';
 
 } else {

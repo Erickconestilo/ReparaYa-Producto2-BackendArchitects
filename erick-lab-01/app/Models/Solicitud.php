@@ -8,13 +8,13 @@ final class Solicitud
     public static function servicios(): array
     {
         return Conexion::abrir()->query(
-            'SELECT id, nombre_especialidad, precio_base FROM especialidades ORDER BY nombre_especialidad'
+            'SELECT id, nombre_especialidad, precio_base FROM especialidades WHERE activa = 1 ORDER BY nombre_especialidad'
         )->fetchAll();
     }
 
     public static function existeServicio(int $id): bool
     {
-        $consulta = Conexion::abrir()->prepare('SELECT 1 FROM especialidades WHERE id = :id');
+        $consulta = Conexion::abrir()->prepare('SELECT 1 FROM especialidades WHERE id = :id AND activa = 1');
         $consulta->execute(['id' => $id]);
         return $consulta->fetchColumn() !== false;
     }

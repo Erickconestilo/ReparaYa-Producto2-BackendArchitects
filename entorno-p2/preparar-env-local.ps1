@@ -17,8 +17,8 @@ function NuevaClave() {
 $claveAplicacion = NuevaClave
 $claveRoot = NuevaClave
 $contenido = @(
-    'MYSQL_DATABASE=reparaya_p2'
-    'MYSQL_USER=reparaya_p2_app'
+    'MYSQL_DATABASE=reparaya_p2_integracion'
+    'MYSQL_USER=reparaya_p2_integracion'
     "MYSQL_PASSWORD=$claveAplicacion"
     "MYSQL_ROOT_PASSWORD=$claveRoot"
 ) -join "`n"
