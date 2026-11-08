@@ -1,29 +1,47 @@
 # ReparaYa · Producto 2 · BackendArchitects
 
-Trabajo académico del **Grupo 5** en UOC FP.448 — Desarrollo back-end con PHP,
-framework MVC y gestión de contenidos. **Participantes actuales:** Erick Chacón González
-y Paula Gómez del Águila. **Entrega indicada en Canvas:** 08/11/2026 a las 23:59
-(hora de Madrid). Este repositorio es **privado** y se utiliza para colaborar; no
-acredita que la actividad haya sido entregada.
+Proyecto académico del **Grupo 5** de UOC FP.448, con **Erick Chacón González**
+y **Paula Gómez del Águila** como integrantes.
 
-Repositorio: https://github.com/Erickconestilo/ReparaYa-Producto2-BackendArchitects
-Propietario: `Erickconestilo`. Creado el 06/11/2026. La invitación a Paula está
-pendiente de confirmar su **usuario de GitHub exacto**.
+> **Estado de esta rama:** `feat/integracion-paula-local` es una **integración
+> posterior a la entrega académica**, preparada y probada por Erick con ayuda de IA.
+> No es una fusión definitiva acordada por el equipo, no está incorporada a `main`
+> y no modifica lo que se presentó originalmente en Canvas.
 
-## Estado y reparto
+Repositorio público de referencia:
+https://github.com/Erickconestilo/ReparaYa-Producto2-BackendArchitects
 
-- **Erick:** registro/login/perfil de clientes y creación, consulta, cancelación,
-  historial y corrección de datos de solicitudes. Funciones probadas sobre MySQL local.
-- **Paula:** administración/calendario y técnicos/servicios, **reparto propuesto
-  pendiente de confirmar e integrar**. No hay código de Paula en esta primera versión.
-- La ampliación de código y las pruebas automatizadas de 06/11 fueron implementadas
-  con ayuda de IA bajo autorización de Erick. Él ha ejecutado personalmente
-  22/22 pruebas de usuarios y 20/20 de solicitudes; las 26 pruebas de edición fueron
-  ejecutadas inicialmente por el asistente. Se debe revisar y defender el código
-  individualmente. Véanse los informes y las guías UocStudy.
+## Autoría, coordinación y estado real
 
-**No es Producto 2 completo:** faltan los módulos del equipo, roles integrados,
-calendario, Git de ambos, AWS, documentación final, mapa, vídeo y entrega.
+- **Erick:** desarrollo de usuarios, acceso, perfil, solicitudes y sus reglas de
+  negocio; posteriormente realizó la integración local, adaptación de arquitectura,
+  pruebas y documentación de esta rama.
+- **Paula:** aportó en su entrega grupal el trabajo relacionado con el ámbito de
+  administración, técnicos y calendario. Se estudiaron sus archivos como referencia
+  y se **adaptaron/reimplementaron** funciones compatibles con el router PHP MVC
+  y el esquema PDO/MySQL de esta copia. No afirmar que sus archivos se copiaron
+  íntegramente o que todo su sistema quedó fusionado.
+- **Motivo del avance autónomo:** según Erick, por los horarios diferentes no
+  consiguieron mantener una comunicación fluida y, cuando él continuó la integración,
+  todavía no había recibido respuesta de Paula. Esta nota explica la coordinación,
+  **no cuestiona el trabajo ni la dedicación de Paula**.
+- El trabajo de integración y las pruebas se hicieron con apoyo de IA, bajo
+  indicaciones de Erick; el historial Git conserva los commits realizados por él.
+  El resultado debe ser comprendido y revisado por sus integrantes.
+
+Se validaron **155/155 comprobaciones automatizadas** (68 de usuarios/solicitudes/
+edición y 87 de integración) y un recorrido manual de administrador a técnico.
+La interfaz visual sigue siendo básica, no se ha verificado AWS y no se puede
+considerar un producto terminado.
+
+Antes de publicar esta rama, fusionarla o presentarla como versión conjunta
+definitiva, Erick decidirá el siguiente paso y se procurará revisar con Paula
+qué partes de su entrega desea incorporar o corregir.
+
+Detalle y cronología: `documentacion/INTEGRACION-AUTONOMA-ERICK-20261108.md`,
+`documentacion/INTEGRACION-LOCAL-FASE1-20261108.md`,
+`documentacion/INTEGRACION-LOCAL-FASE2-20261108.md` y
+`documentacion/VALIDACION-DOCKER-NAVEGADOR-20261108.md`.
 
 ## Estructura
 
@@ -48,7 +66,8 @@ docker compose up -d --build
 docker compose ps
 ```
 
-Web local: http://127.0.0.1:8083/
+Web de **esta rama aislada**: http://127.0.0.1:8084/
+El puerto 8083 corresponde al entorno original de Erick y no debe confundirse.
 
 Al crear **por primera vez** una base vacía, Docker importa el SQL original, después
 la ampliación del esquema, el catálogo **DEMO** y la normalización de `Estándar`.
@@ -91,5 +110,6 @@ Guía de entrada para Paula: `GUIA-COLABORACION-PAULA.md`.
 - `documentacion/SECCION-WORD-ERICK-P2.md` — texto base de la aportación de Erick para revisar con su propia voz.
 - Los diagramas Archify están en `.archify/architecture-reparaya-20261107-072710/` y `.archify/lifecycle-incidencias-20261107-072710/`. Son **material de apoyo**, no sustituyen el mapa manuscrito ni acreditan funciones pendientes.
 
-Esta copia inicial no sustituye el trabajo ni las decisiones de Paula. El objetivo
-es que ambos puedan construir y comprobar la misma versión del proyecto.
+Esta rama conserva el crédito del trabajo de ambos y documenta que Erick
+ejecutó por su cuenta la integración posterior ante la falta de una respuesta
+oportuna para coordinarla. Queda pendiente una revisión conjunta.
