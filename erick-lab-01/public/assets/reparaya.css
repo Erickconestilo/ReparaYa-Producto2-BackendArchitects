@@ -1,0 +1,30 @@
+:root { color-scheme: light; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #14253d; background: #f6f8fc; }
+* { box-sizing: border-box; }
+body { margin: 0; line-height: 1.55; }
+a { color: inherit; }
+.cabecera { max-width: 1150px; margin: auto; padding: 22px 30px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.marca { font-size: 1.6rem; letter-spacing: -.05em; font-weight: 850; text-decoration: none; }
+.marca span { color: #0a8376; }
+nav { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; }
+nav a { font-weight: 650; font-size: .94rem; text-decoration: none; }
+nav a:hover, nav a:focus-visible { text-decoration: underline; }
+.enlace-destacado { background: #dff5f1; color: #09685e; padding: 9px 15px; border-radius: 999px; }
+main { max-width: 1150px; padding: 0 30px; margin: auto; }
+.portada { margin-top: 36px; padding: clamp(32px, 6vw, 85px); border-radius: 26px; background: linear-gradient(120deg, #122844 0%, #16465c 67%, #0a8376 130%); color: white; }
+.etiqueta { text-transform: uppercase; letter-spacing: .14em; font-size: .76rem; font-weight: 750; color: #9fe1d8; }
+h1 { max-width: 730px; font-size: clamp(2.2rem, 5vw, 4.2rem); line-height: 1.12; letter-spacing: -.04em; margin: 18px 0; }
+.introduccion { max-width: 580px; font-size: 1.13rem; color: #e2edf5; }
+.acciones { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+.boton { display: inline-block; border-radius: 12px; padding: 12px 19px; text-decoration: none; font-weight: 720; }
+.boton:focus-visible, nav a:focus-visible { outline: 3px solid #e6b657; outline-offset: 3px; }
+.boton-primario { background: #b8f1df; color: #063e3a; }
+.boton-secundario { border: 1px solid #91acbd; color: #fff; }
+.funciones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 24px 0 32px; }
+.funciones article { background: white; border: 1px solid #e0e8ef; border-radius: 18px; padding: 24px; box-shadow: 0 4px 20px #12284408; }
+.funciones h2 { margin: 8px 0; font-size: 1.2rem; }
+.funciones p { color: #46556a; margin-bottom: 0; }
+.numero { color: #06796f; font-size: .82rem; font-weight: 850; letter-spacing: .1em; }
+.nota-laboratorio { margin-bottom: 36px; color: #53647c; font-size: .86rem; }
+.nota-laboratorio summary { cursor: pointer; }
+footer { text-align: center; color: #67788d; font-size: .84rem; padding: 15px 24px 40px; }
+@media (max-width: 740px) { .cabecera { padding: 20px; flex-direction: column; align-items: flex-start; } main { padding: 0 18px; } .portada { margin-top: 12px; padding: 32px 25px; } .funciones { grid-template-columns: 1fr; } }
